@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FinCore - Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/fincore.css}">
+</head>
+<body>
+<div class="app">
+    <div th:replace="layout/sidebar :: sidebar('dashboard')"></div>
+
+    <main class="main">
+        <header class="topbar">
+            <h1>Dashboard</h1>
+            <div class="user-box">
+                <strong th:text="${usuario}">Usuario</strong><br>
+                <span th:text="${rol}">Gerente</span>
+            </div>
+        </header>
+
+        <section class="content">
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <small>Ingresos Totales</small>
+                    <h3>S/ 124,500.00</h3>
+                    <span class="positive">↑ 12.5% vs mes anterior</span>
+                </div>
+                <div class="kpi-card">
+                    <small>Egresos Totales</small>
+                    <h3>S/ 78,250.00</h3>
+                    <span class="negative">↓ 8.3% vs mes anterior</span>
+                </div>
+                <div class="kpi-card">
+                    <small>Saldo Actual</small>
+                    <h3>S/ 47,180.00</h3>
+                    <span class="positive">↑ 5.7% vs mes anterior</span>
+                </div>
+                <div class="kpi-card">
+                    <small>Operaciones</small>
+                    <h3>152</h3>
+                    <span class="positive">↑ 16 vs mes anterior</span>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="panel">
+                    <h3>Ingresos vs Egresos Mensual</h3>
+                    <p>Gráfico pendiente de integrar con Chart.js.</p>
+                    <table class="table">
+                        <tr><th>Mes</th><th>Ingresos</th><th>Egresos</th></tr>
+                        <tr><td>Ene</td><td>S/ 120,000</td><td>S/ 75,000</td></tr>
+                        <tr><td>Feb</td><td>S/ 118,000</td><td>S/ 80,000</td></tr>
+                        <tr><td>Mar</td><td>S/ 152,000</td><td>S/ 90,000</td></tr>
+                    </table>
+                </div>
+
+                <div class="panel">
+                    <h3>Distribución de Gastos</h3>
+                    <table class="table">
+                        <tr><td>Operativos</td><td>45%</td></tr>
+                        <tr><td>Administrativos</td><td>30%</td></tr>
+                        <tr><td>Financieros</td><td>15%</td></tr>
+                        <tr><td>Otros</td><td>10%</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Últimas Transacciones</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Descripción</th>
+                        <th>Tipo</th>
+                        <th>Monto</th>
+                        <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>03/06/2024</td>
+                        <td>Pago de servicio hosting</td>
+                        <td><span class="badge badge-expense">Egreso</span></td>
+                        <td>-S/ 280.00</td>
+                        <td><span class="badge badge-success">Completado</span></td>
+                    </tr>
+                    <tr>
+                        <td>03/06/2024</td>
+                        <td>Cobro a cliente A</td>
+                        <td><span class="badge badge-income">Ingreso</span></td>
+                        <td>+S/ 2,500.00</td>
+                        <td><span class="badge badge-success">Completado</span></td>
+                    </tr>
+                    <tr>
+                        <td>02/06/2024</td>
+                        <td>Compra de útiles oficina</td>
+                        <td><span class="badge badge-expense">Egreso</span></td>
+                        <td>-S/ 120.00</td>
+                        <td><span class="badge badge-warning">Pendiente</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

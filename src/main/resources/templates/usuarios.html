@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FinCore - Usuarios</title>
+    <link rel="stylesheet" th:href="@{/css/fincore.css}">
+</head>
+<body>
+<div class="app">
+    <div th:replace="layout/sidebar :: sidebar('usuarios')"></div>
+
+    <main class="main">
+        <header class="topbar">
+            <h1>Usuarios</h1>
+            <div class="user-box">
+                <strong th:text="${usuario}">Usuario</strong><br>
+                <span th:text="${rol}">Administrador</span>
+            </div>
+        </header>
+
+        <section class="content">
+            <div class="panel">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h3>Gestión de Usuarios</h3>
+                    <button class="btn btn-primary">Nuevo Usuario</button>
+                </div>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo electrónico</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Juan Pérez</td>
+                        <td>juan@correo.com</td>
+                        <td>Gerente</td>
+                        <td><span class="badge badge-success">Activo</span></td>
+                        <td>
+                            <button class="btn btn-secondary">Editar</button>
+                            <button class="btn btn-danger">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>María López</td>
+                        <td>maria@correo.com</td>
+                        <td>Contador</td>
+                        <td><span class="badge badge-success">Activo</span></td>
+                        <td>
+                            <button class="btn btn-secondary">Editar</button>
+                            <button class="btn btn-danger">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Carlos Díaz</td>
+                        <td>carlos@correo.com</td>
+                        <td>Tesorero</td>
+                        <td><span class="badge badge-success">Activo</span></td>
+                        <td>
+                            <button class="btn btn-secondary">Editar</button>
+                            <button class="btn btn-danger">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Pedro Ramos</td>
+                        <td>pedro@correo.com</td>
+                        <td>Administrador</td>
+                        <td><span class="badge">Inactivo</span></td>
+                        <td>
+                            <button class="btn btn-secondary">Editar</button>
+                            <button class="btn btn-danger">Eliminar</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FinCore - Login</title>
+    <link rel="stylesheet" th:href="@{/css/fincore.css}">
+</head>
+<body>
+<div class="login-wrapper">
+    <div class="login-card">
+        <section class="login-left">
+            <h1>PROYECTO</h1>
+            <h2>Bienvenido</h2>
+            <p>Ingresa a tu cuenta para continuar gestionando la información financiera.</p>
+            <div class="login-graphic">Dashboard financiero</div>
+        </section>
+
+        <section class="login-right">
+            <h2>Iniciar Sesión</h2>
+            <p>Accede con tu cuenta</p>
+
+            <form th:action="@{/dashboard}" method="get">
+                <div class="form-group">
+                    <label>Correo electrónico</label>
+                    <input type="email" name="correo" placeholder="usuario@correo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" placeholder="********" required>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; margin-bottom:18px;">
+                    <label style="font-weight:400;">
+                        <input type="checkbox" style="width:auto;"> Recordarme
+                    </label>
+                    <a href="#" style="color:#333; text-decoration:none;">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <button class="btn btn-primary full-btn" type="submit">Iniciar Sesión</button>
+            </form>
+
+            <div style="text-align:center; margin:28px 0 16px; color:#777;">o continúa con</div>
+
+            <button class="btn btn-secondary full-btn">Continuar con Google</button>
+        </section>
+    </div>
+</div>
+</body>
+</html>

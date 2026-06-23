@@ -1,0 +1,16 @@
+<div class="sidebar" th:fragment="sidebar(active)">
+    <h2>PROYECTO</h2>
+
+    <nav class="menu">
+        <a th:classappend="${active == 'dashboard'} ? 'active'" th:href="@{/dashboard}">⌂ Dashboard</a>
+        <a th:classappend="${active == 'ingresos'} ? 'active'" th:href="@{/ingresos/nuevo}">↗ Ingresos</a>
+        <a th:classappend="${active == 'egresos'} ? 'active'" th:href="@{/egresos/nuevo}">↘ Egresos</a>
+        <a th:href="@{/cuentas}">▤ Cuentas Bancarias</a>
+        <a th:classappend="${active == 'conciliacion'} ? 'active'" th:href="@{/conciliacion}">☑ Conciliación</a>
+        <a th:href="@{/reportes}">▣ Reportes</a>
+        <a th:classappend="${active == 'usuarios'} ? 'active'" th:href="@{/usuarios}">♙ Usuarios</a>
+        <a th:href="@{/configuracion}">⚙ Configuración</a>
+    </nav>
+
+    <a class="logout" th:href="@{/login}">Cerrar sesión</a>
+</div>

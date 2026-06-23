@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FinCore - Registro de Egresos</title>
+    <link rel="stylesheet" th:href="@{/css/fincore.css}">
+</head>
+<body>
+<div class="app">
+    <div th:replace="layout/sidebar :: sidebar('egresos')"></div>
+
+    <main class="main">
+        <header class="topbar">
+            <h1>Registro de Egresos</h1>
+            <div class="user-box">
+                <strong th:text="${usuario}">Usuario</strong><br>
+                <span th:text="${rol}">Contador</span>
+            </div>
+        </header>
+
+        <section class="content">
+            <form class="panel" method="post" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fecha *</label>
+                        <input type="date" name="fecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Monto (S/.) *</label>
+                        <input type="number" name="monto" step="0.01" min="0.01" placeholder="280.00" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Proveedor *</label>
+                        <select name="proveedorId" required>
+                            <option>Proveedor XYZ S.A.C.</option>
+                            <option>Servicios Generales Lima S.A.C.</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de gasto *</label>
+                        <select name="categoriaId" required>
+                            <option>Servicios</option>
+                            <option>Operativos</option>
+                            <option>Administrativos</option>
+                            <option>Financieros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Método de pago *</label>
+                        <select name="metodoPago" required>
+                            <option>Transferencia bancaria</option>
+                            <option>Efectivo</option>
+                            <option>Tarjeta</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Cuenta bancaria *</label>
+                        <select name="cuentaBancariaId" required>
+                            <option>Cuenta Corriente BCP</option>
+                            <option>Cuenta Interbank</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Descripción / Observación</label>
+                    <textarea name="descripcion">Pago por servicio de mantenimiento preventivo de equipos.</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Comprobante PDF, XML, JPG o PNG *</label>
+                    <div class="file-box">
+                        <input type="file" name="comprobante" accept=".pdf,.xml,.jpg,.jpeg,.png">
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <a class="btn btn-secondary" th:href="@{/dashboard}">Cancelar</a>
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                </div>
+            </form>
+        </section>
+    </main>
+</div>
+</body>
+</html>

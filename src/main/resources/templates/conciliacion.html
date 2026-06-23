@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FinCore - Conciliación Bancaria</title>
+    <link rel="stylesheet" th:href="@{/css/fincore.css}">
+</head>
+<body>
+<div class="app">
+    <div th:replace="layout/sidebar :: sidebar('conciliacion')"></div>
+
+    <main class="main">
+        <header class="topbar">
+            <h1>Conciliación Bancaria</h1>
+            <div class="user-box">
+                <strong th:text="${usuario}">Usuario</strong><br>
+                <span th:text="${rol}">Tesorero</span>
+            </div>
+        </header>
+
+        <section class="content">
+            <div class="panel">
+                <h3>Cargar Movimientos Bancarios CSV</h3>
+                <form class="form-row" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="file" name="archivoCsv" accept=".csv">
+                        <small>Máximo 10 MB - Formato CSV</small>
+                    </div>
+                    <div class="form-group" style="align-self:end;">
+                        <button class="btn btn-primary" type="submit">Cargar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="panel">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Cuenta bancaria</label>
+                        <select>
+                            <option>Cuenta Corriente BCP</option>
+                            <option>Cuenta Interbank</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha inicio</label>
+                        <input type="date">
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha fin</label>
+                        <input type="date">
+                    </div>
+                </div>
+                <button class="btn btn-primary">Filtrar</button>
+            </div>
+
+            <div class="panel">
+                <h3>Movimientos</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Referencia</th>
+                        <th>Descripción</th>
+                        <th>Monto</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>03/06/2024</td>
+                        <td>12458</td>
+                        <td>Transferencia recibida</td>
+                        <td>+S/ 2,500.00</td>
+                        <td><span class="badge badge-success">Conciliado</span></td>
+                        <td><button class="btn btn-secondary">Ver</button></td>
+                    </tr>
+                    <tr>
+                        <td>03/06/2024</td>
+                        <td>12459</td>
+                        <td>Pago servicio luz</td>
+                        <td>-S/ 180.00</td>
+                        <td><span class="badge badge-warning">Pendiente</span></td>
+                        <td><button class="btn btn-secondary">Ver</button></td>
+                    </tr>
+                    <tr>
+                        <td>01/06/2024</td>
+                        <td>12461</td>
+                        <td>Comisión bancaria</td>
+                        <td>-S/ 12.50</td>
+                        <td><span class="badge badge-danger">No conciliado</span></td>
+                        <td><button class="btn btn-secondary">Ver</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>
