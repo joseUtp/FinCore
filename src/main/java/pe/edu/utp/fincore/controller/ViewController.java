@@ -33,6 +33,13 @@ public class ViewController {
         return "egresos";
     }
 
+    @GetMapping("/cuentas")
+    public String cuentas(Model model) {
+        model.addAttribute("usuario", "Usuario");
+        model.addAttribute("rol", "Tesorero");
+        return "cuentas";
+    }
+
     @GetMapping("/conciliacion")
     public String conciliacion(Model model) {
         model.addAttribute("usuario", "Usuario");
@@ -40,10 +47,24 @@ public class ViewController {
         return "conciliacion";
     }
 
+    @GetMapping("/reportes")
+    public String reportes(Model model) {
+        model.addAttribute("usuario", "Usuario");
+        model.addAttribute("rol", "Contador");
+        return "reportes";
+    }
+
     @GetMapping("/usuarios")
     public String usuarios(Model model) {
         model.addAttribute("usuario", "Usuario");
         model.addAttribute("rol", "Administrador");
         return "usuarios";
+    }
+
+    @GetMapping("/configuracion")
+    public String configuracion(Model model) {
+        model.addAttribute("usuario", "Usuario");
+        model.addAttribute("rol", "Administrador");
+        return "configuracion";
     }
 }

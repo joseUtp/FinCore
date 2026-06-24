@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FinCore - Configuración</title>
+    <link rel="stylesheet" href="/css/fincore.css" th:href="@{/css/fincore.css}">
+</head>
+<body>
+<div class="app">
+    <div th:replace="layout/sidebar :: sidebar('configuracion')"></div>
+
+    <main class="main">
+        <header class="topbar">
+            <h1>Configuración</h1>
+            <div class="user-box">
+                <strong th:text="${usuario}">Usuario</strong><br>
+                <span th:text="${rol}">Administrador</span>
+            </div>
+        </header>
+
+        <section class="content">
+            <div class="grid-2">
+                <div class="panel">
+                    <h3>Parámetros generales</h3>
+
+                    <div class="form-group">
+                        <label>Nombre del sistema</label>
+                        <input type="text" value="FinCore">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Empresa</label>
+                        <input type="text" value="Code Net Solutions S.A.C.">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Moneda principal</label>
+                        <select>
+                            <option>Soles (PEN)</option>
+                            <option>Dólares (USD)</option>
+                        </select>
+                    </div>
+
+                    <div class="actions">
+                        <button class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h3>Seguridad</h3>
+
+                    <div class="form-group">
+                        <label>Intentos máximos de login</label>
+                        <input type="number" value="3">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tiempo de sesión</label>
+                        <select>
+                            <option>15 minutos</option>
+                            <option>30 minutos</option>
+                            <option>60 minutos</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado del sistema</label>
+                        <select>
+                            <option>Activo</option>
+                            <option>Mantenimiento</option>
+                        </select>
+                    </div>
+
+                    <div class="actions">
+                        <button class="btn btn-primary">Actualizar seguridad</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Auditoría reciente</h3>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Usuario</th>
+                        <th>Módulo</th>
+                        <th>Acción</th>
+                        <th>Descripción</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>23/06/2026 19:20</td>
+                        <td>admin@codenetsolutions.com</td>
+                        <td>Usuarios</td>
+                        <td>Consulta</td>
+                        <td>Acceso a gestión de usuarios.</td>
+                    </tr>
+                    <tr>
+                        <td>23/06/2026 19:22</td>
+                        <td>tesorero@codenetsolutions.com</td>
+                        <td>Conciliación</td>
+                        <td>Carga CSV</td>
+                        <td>Registro de archivo bancario para conciliación.</td>
+                    </tr>
+                    <tr>
+                        <td>23/06/2026 19:24</td>
+                        <td>contador@codenetsolutions.com</td>
+                        <td>Reportes</td>
+                        <td>Exportación</td>
+                        <td>Generación de reporte financiero mensual.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>
