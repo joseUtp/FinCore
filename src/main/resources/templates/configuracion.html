@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FinCore - Configuración</title>
+    <link rel="stylesheet" th:href="@{/css/fincore.css}">
+</head>
+<body>
+<div class="app">
+    <div th:replace="~{layout/sidebar :: sidebar('configuracion')}"></div>
+
+    <main class="main">
+        <header class="topbar">
+            <h1>Configuración</h1>
+            <div class="user-box">
+                <strong th:text="${usuario}">Usuario</strong><br>
+                <span th:text="${rol}">Administrador</span>
+            </div>
+        </header>
+
+        <section class="content">
+            <form th:action="@{/configuracion/guardar}" method="post">
+                <div class="grid-2">
+                    <div class="panel">
+                        <h3>Información de la empresa</h3>
+                        <div class="form-group">
+                            <label>Nombre de la empresa</label>
+                            <input type="text" name="nombreEmpresa" th:value="${nombreEmpresa != null ? nombreEmpresa : 'FinCore S.A.C.'}" class="full-width">
+                        </div>
+                        <div class="form-group">
+                            <label>RUC</label>
+                            <input type="text" name="ruc" th:value="${ruc != null ? ruc : '20601234567'}" class="full-width">
+                        </div>
+                        <div class="form-group">
+                            <label>Moneda principal</label>
+                            <select name="moneda" class="full-width">
+                                <option value="PEN" th:selected="${moneda == null or moneda == 'PEN'}">PEN</option>
+                                <option value="USD" th:selected="${moneda == 'USD'}">USD</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+
+                    <div class="panel">
+                        <h3>Preferencias del sistema</h3>
+                        <div class="form-group">
+                            <label><input type="checkbox" name="alertasCorreo" value="true" th:checked="${alertasCorreo != null ? alertasCorreo : true}"> Habilitar alertas por correo</label>
+                        </div>
+                        <div class="form-group">
+                            <label><input type="checkbox" name="resumenDiario" value="true" th:checked="${resumenDiario != null ? resumenDiario : true}"> Mostrar resumen diario en dashboard</label>
+                        </div>
+                        <div class="form-group">
+                            <label><input type="checkbox" name="edicionTransaccionesCerradas" value="true" th:checked="${edicionTransaccionesCerradas != null ? edicionTransaccionesCerradas : false}"> Permitir edición de transacciones cerradas</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Zona horaria</label>
+                            <select name="zonaHoraria" class="full-width">
+                                <option value="America/Lima" th:selected="${zonaHoraria == null or zonaHoraria == 'America/Lima'}">America/Lima</option>
+                                <option value="America/Mexico_City" th:selected="${zonaHoraria == 'America/Mexico_City'}">America/Mexico_City</option>
+                                <option value="America/Bogota" th:selected="${zonaHoraria == 'America/Bogota'}">America/Bogota</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel" th:if="${mensajeExito != null}">
+                    <p style="color: #2e8b57; font-weight: 600;" th:text="${mensajeExito}"></p>
+                </div>
+            </form>
+
+            <div class="panel">
+                <h3>Seguridad</h3>
+                <p>Gestiona tus credenciales y cierre de sesión desde aquí.</p>
+                <a class="btn btn-secondary" th:href="@{/logout}">Cerrar sesión</a>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

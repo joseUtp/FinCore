@@ -9,8 +9,8 @@
         <a th:classappend="${active == 'conciliacion'} ? 'active'" th:href="@{/conciliacion}">☑ Conciliación</a>
         <a th:href="@{/reportes}">▣ Reportes</a>
         <a th:classappend="${active == 'usuarios'} ? 'active'" th:href="@{/usuarios}">♙ Usuarios</a>
-        <a th:href="@{/configuracion}">⚙ Configuración</a>
+        <a th:classappend="${active == 'configuracion'} ? 'active'" th:href="@{/configuracion}">⚙ Configuración</a>
     </nav>
 
-    <a class="logout" th:href="@{/login}">Cerrar sesión</a>
+    <a class="logout" th:href="@{/logout}">Cerrar sesión</a>
 </div>
