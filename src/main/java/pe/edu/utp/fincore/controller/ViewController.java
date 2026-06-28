@@ -40,10 +40,4 @@ public class ViewController {
         return "conciliacion";
     }
 
-    @GetMapping("/usuarios")
-    public String usuarios(Model model) {
-        model.addAttribute("usuario", "Usuario");
-        model.addAttribute("rol", "Administrador");
-        return "usuarios";
-    }
 }
