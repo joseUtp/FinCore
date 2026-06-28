@@ -35,6 +35,13 @@ public class ViewController {
         return "egresos";
     }
 
+    @GetMapping("/cuentas")
+    public String cuentas(Model model) {
+        model.addAttribute("usuario", "Usuario");
+        model.addAttribute("rol", "Tesorero");
+        return "cuentas";
+    }
+
     @GetMapping("/conciliacion")
     public String conciliacion(Model model) {
         model.addAttribute("usuario", "Usuario");
@@ -42,11 +49,11 @@ public class ViewController {
         return "conciliacion";
     }
 
-    @GetMapping("/configuracion")
-    public String configuracion(Model model) {
+    @GetMapping("/reportes")
+    public String reportes(Model model) {
         model.addAttribute("usuario", "Usuario");
-        model.addAttribute("rol", "Administrador");
-        return "configuracion";
+        model.addAttribute("rol", "Contador");
+        return "reportes";
     }
 
     @PostMapping("/configuracion/guardar")
@@ -77,4 +84,10 @@ public class ViewController {
         return "redirect:/login";
     }
 
+    @GetMapping("/configuracion")
+    public String configuracion(Model model) {
+        model.addAttribute("usuario", "Usuario");
+        model.addAttribute("rol", "Administrador");
+        return "configuracion";
+    }
 }

@@ -5,9 +5,9 @@
         <a th:classappend="${active == 'dashboard'} ? 'active'" th:href="@{/dashboard}">⌂ Dashboard</a>
         <a th:classappend="${active == 'ingresos'} ? 'active'" th:href="@{/ingresos/nuevo}">↗ Ingresos</a>
         <a th:classappend="${active == 'egresos'} ? 'active'" th:href="@{/egresos/nuevo}">↘ Egresos</a>
-        <a th:href="@{/cuentas}">▤ Cuentas Bancarias</a>
+        <a th:classappend="${active == 'cuentas'} ? 'active'" th:href="@{/cuentas}">▤ Cuentas Bancarias</a>
         <a th:classappend="${active == 'conciliacion'} ? 'active'" th:href="@{/conciliacion}">☑ Conciliación</a>
-        <a th:href="@{/reportes}">▣ Reportes</a>
+        <a th:classappend="${active == 'reportes'} ? 'active'" th:href="@{/reportes}">▣ Reportes</a>
         <a th:classappend="${active == 'usuarios'} ? 'active'" th:href="@{/usuarios}">♙ Usuarios</a>
         <a th:classappend="${active == 'configuracion'} ? 'active'" th:href="@{/configuracion}">⚙ Configuración</a>
     </nav>
