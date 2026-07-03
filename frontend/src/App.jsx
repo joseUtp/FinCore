@@ -1,37 +1,111 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import KPICards from './components/KPICards';
 import ChartsSection from './components/ChartsSection';
 import TransactionsTable from './components/TransactionsTable';
 import UsuariosSection from './components/UsuariosSection';
+import CuentasBancariasSection from './components/CuentasBancariasSection';
+import TransaccionesFormSection from './components/TransaccionesFormSection';
+import Login from './components/Login';
 import { 
   Bell, 
   Search, 
   ChevronDown, 
   Calendar, 
-  Plus 
+  Plus,
+  LogOut 
 } from 'lucide-react';
 
+// Interceptor global de fetch estático para evitar condiciones de carrera en el ciclo de vida de React
+const originalFetch = window.fetch;
+window.fetch = async (url, options = {}) => {
+  let finalUrl = url;
+  if (url.startsWith('/api')) {
+    finalUrl = `http://localhost:8080${url}`;
+  }
+  
+  let token = null;
+  try {
+    const stored = sessionStorage.getItem('user');
+    if (stored) {
+      token = JSON.parse(stored)?.token;
+    }
+  } catch (e) {
+    console.error("Error al leer el token en el interceptor fetch:", e);
+  }
+
+  const headers = {
+    ...options.headers,
+  };
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  
+  try {
+    const res = await originalFetch(finalUrl, { ...options, headers });
+    if (res.status === 401) {
+      sessionStorage.removeItem('user');
+      window.location.reload();
+    }
+    return res;
+  } catch (err) {
+    console.error("Fetch Interceptor Error:", err);
+    throw err;
+  }
+};
+
 function App() {
+  const [user, setUser] = useState(() => {
+    try {
+      const stored = sessionStorage.getItem('user');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
+
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+
+  const handleLoginSuccess = (userData) => {
+    sessionStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData);
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('user');
+    setUser(null);
+    setActiveTab('dashboard');
+  };
+
+  if (!user) {
+    return <Login onLoginSuccess={handleLoginSuccess} />;
+  }
 
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
         return (
           <div className="space-y-8 animate-fade-in">
-            {/* Upper KPI cards */}
+            {/* KPI Cards */}
             <KPICards />
             
-            {/* Center charts row */}
+            {/* Charts Section */}
             <ChartsSection />
             
-            {/* Bottom transactions table */}
+            {/* Transactions Table */}
             <TransactionsTable />
           </div>
         );
       case 'usuarios':
         return <UsuariosSection />;
+      case 'cuentas':
+        return <CuentasBancariasSection />;
+      case 'ingresos':
+        return <TransaccionesFormSection tipo="INGRESO" />;
+      case 'egresos':
+        return <TransaccionesFormSection tipo="EGRESO" />;
       default:
         return (
           <div className="bg-white p-12 rounded-2xl border border-zinc-100 shadow-[0_2px_8px_-3px_rgba(0,0,0,0.05)] text-center py-20 animate-fade-in">
@@ -54,8 +128,8 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] flex font-sans antialiased text-zinc-900">
-      {/* Sidebar Navigation */}
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      {/* Sidebar Navigation - Pasamos el rol del usuario */}
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} userRole={user.rol} />
       
       {/* Main Container */}
       <main className="flex-1 min-h-screen pl-64 flex flex-col">
@@ -88,18 +162,38 @@ function App() {
             {/* Divider */}
             <div className="h-6 w-px bg-zinc-200"></div>
 
-            {/* User Profile */}
-            <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
-              <img 
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" 
-                alt="Avatar" 
-                className="w-8 h-8 rounded-full object-cover border border-zinc-200"
-              />
-              <div className="hidden sm:block text-left">
-                <p className="text-xs font-semibold text-zinc-800 leading-tight">Admin FinCore</p>
-                <p className="text-[10px] text-zinc-400 font-medium">Finanzas</p>
+            {/* User Profile Dropdown */}
+            <div className="relative">
+              <div 
+                onClick={() => setShowProfileMenu(!showProfileMenu)}
+                className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-all"
+              >
+                <div className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-200 flex items-center justify-center text-xs font-bold text-white uppercase select-none">
+                  {user.nombre.substring(0, 2)}
+                </div>
+                <div className="hidden sm:block text-left select-none">
+                  <p className="text-xs font-semibold text-zinc-800 leading-tight">{user.nombre}</p>
+                  <p className="text-[10px] text-zinc-400 font-medium capitalize">{user.rol.toLowerCase()}</p>
+                </div>
+                <ChevronDown className="w-3.5 h-3.5 text-zinc-400" />
               </div>
-              <ChevronDown className="w-3.5 h-3.5 text-zinc-400" />
+
+              {/* Menu desplegable */}
+              {showProfileMenu && (
+                <div className="absolute right-0 mt-2.5 w-48 bg-white border border-zinc-200/80 rounded-xl shadow-lg py-1.5 z-30 animate-fade-in">
+                  <div className="px-4 py-2 border-b border-zinc-100">
+                    <p className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider">Correo</p>
+                    <p className="text-xs text-zinc-600 truncate">{user.correo}</p>
+                  </div>
+                  <button 
+                    onClick={handleLogout}
+                    className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50/50 transition-colors"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Cerrar Sesión
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </header>
@@ -109,19 +203,21 @@ function App() {
           {/* Page Title & Main Action Button */}
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-zinc-900 tracking-tight">Dashboard</h1>
+              <h1 className="text-3xl font-bold text-zinc-900 tracking-tight capitalize">{activeTab}</h1>
               <p className="text-zinc-500 text-sm mt-1">
-                Bienvenido de nuevo. Aquí tienes el estado financiero actual.
+                Bienvenido, {user.nombre}. Panel de gestión financiera.
               </p>
             </div>
             
-            <button 
-              onClick={() => setActiveTab('ingresos')}
-              className="flex items-center gap-2 bg-zinc-950 text-white hover:bg-zinc-800 px-4 py-2.5 rounded-xl shadow-sm text-xs font-semibold tracking-wide transition-all active:scale-[0.98]"
-            >
-              <Plus className="w-4 h-4" />
-              Nueva Operación
-            </button>
+            {activeTab === 'dashboard' && (
+              <button 
+                onClick={() => setActiveTab('ingresos')}
+                className="flex items-center gap-2 bg-zinc-950 text-white hover:bg-zinc-800 px-4 py-2.5 rounded-xl shadow-sm text-xs font-semibold tracking-wide transition-all active:scale-[0.98]"
+              >
+                <Plus className="w-4 h-4" />
+                Nueva Operación
+              </button>
+            )}
           </div>
 
           {/* Active section rendering */}

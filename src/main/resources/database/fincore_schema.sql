@@ -166,10 +166,10 @@ INSERT INTO roles(nombre, descripcion) VALUES
 ('TESORERO', 'Gestiona cuentas y conciliación bancaria');
 
 INSERT INTO usuarios(nombre, correo, password_hash, rol_id, estado) VALUES
-('Administrador FinCore', 'admin@codenetsolutions.com', '$2a$10$EjemploHashBCryptCambiarLuego', 1, 'ACTIVO'),
-('Usuario Gerente', 'gerente@codenetsolutions.com', '$2a$10$EjemploHashBCryptCambiarLuego', 2, 'ACTIVO'),
-('Usuario Contador', 'contador@codenetsolutions.com', '$2a$10$EjemploHashBCryptCambiarLuego', 3, 'ACTIVO'),
-('Usuario Tesorero', 'tesorero@codenetsolutions.com', '$2a$10$EjemploHashBCryptCambiarLuego', 4, 'ACTIVO');
+('Administrador FinCore', 'admin@codenetsolutions.com', '$2b$10$S4eGysn7uNBWf9HX14w9wupDqX9s.jrY4AeKbYkCEikDv9ICtwBlq', 1, 'ACTIVO'),
+('Usuario Gerente', 'gerente@codenetsolutions.com', '$2b$10$Fk4ej/QxiMTTeMglP.JXT.WPfxNnvvZSWWFb3sfN9km/grNd/WvLu', 2, 'ACTIVO'),
+('Usuario Contador', 'contador@codenetsolutions.com', '$2b$10$GSLICQz22YijWfb99RA0ju7kcMc0DOVtiIWS/4o2DHZ/BU64V.rb2', 3, 'ACTIVO'),
+('Usuario Tesorero', 'tesorero@codenetsolutions.com', '$2b$10$HXpWDC1fNATskyJZSfj4H.edz4PqVRaEEtemAKQ11j6ohYTKsXL.i', 4, 'ACTIVO');
 
 INSERT INTO categorias(nombre, tipo) VALUES
 ('Ventas', 'INGRESO'),
