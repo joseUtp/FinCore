@@ -7,6 +7,7 @@ import UsuariosSection from './components/UsuariosSection';
 import CuentasBancariasSection from './components/CuentasBancariasSection';
 import TransaccionesFormSection from './components/TransaccionesFormSection';
 import Login from './components/Login';
+import ReportesSection from './components/ReportesSection';
 import { 
   Bell, 
   Search, 
@@ -102,6 +103,8 @@ function App() {
         return <UsuariosSection />;
       case 'cuentas':
         return <CuentasBancariasSection />;
+      case 'reportes':
+        return <ReportesSection />;
       case 'ingresos':
         return <TransaccionesFormSection tipo="INGRESO" />;
       case 'egresos':
