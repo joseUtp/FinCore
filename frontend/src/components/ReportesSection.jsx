@@ -265,7 +265,8 @@ const ReportesSection = () => {
   // Custom tooltips for Recharts
   const CustomTooltipCombined = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
-      const isProj = payload[0].payload.isProjected;
+      const data = payload[0].payload;
+      const isProj = data.isProjected;
       return (
         <div className="bg-[#0B0B0B] text-white p-4 rounded-xl border border-zinc-800 shadow-xl text-xs max-w-xs space-y-2">
           <div className="flex justify-between items-center gap-4">
@@ -277,16 +278,16 @@ const ReportesSection = () => {
           <div className="space-y-1">
             <p className="text-emerald-400 flex justify-between gap-6">
               <span>Ingresos:</span>
-              <span className="font-semibold">S/ {payload[0].value.toLocaleString('es-PE')}</span>
+              <span className="font-semibold">S/ {data.Ingresos?.toLocaleString('es-PE')}</span>
             </p>
             <p className="text-rose-400 flex justify-between gap-6">
               <span>Egresos:</span>
-              <span className="font-semibold">S/ {payload[1].value.toLocaleString('es-PE')}</span>
+              <span className="font-semibold">S/ {data.Egresos?.toLocaleString('es-PE')}</span>
             </p>
             <div className="h-px bg-zinc-800 my-1"></div>
             <p className="text-blue-400 flex justify-between gap-6 font-bold">
               <span>Saldo:</span>
-              <span>S/ {payload[2].value.toLocaleString('es-PE')}</span>
+              <span className="font-semibold">S/ {data.Saldo?.toLocaleString('es-PE')}</span>
             </p>
           </div>
         </div>
