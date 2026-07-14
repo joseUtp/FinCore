@@ -161,11 +161,18 @@ const ReportesSection = () => {
   // Calculations for Key Stats
   const finalProjectedBalance = projections[projections.length - 1]?.Saldo || initialBalance;
   
-  // Calculate burn rate as the average projected expense
-  const burnRate = projections.reduce((acc, p) => acc + p.Egresos, 0) / horizon;
+  // Calculate average projected monthly income and expenses
+  const avgProjectedIngresos = projections.reduce((acc, p) => acc + p.Ingresos, 0) / horizon;
+  const avgProjectedEgresos = projections.reduce((acc, p) => acc + p.Egresos, 0) / horizon;
   
-  // Runway = Current Balance / Burn Rate
-  const runwayMonths = burnRate > 0 ? (initialBalance / burnRate) : 99;
+  // Net Burn Rate (Egresos - Ingresos)
+  const netBurnRate = avgProjectedEgresos - avgProjectedIngresos;
+  
+  // Runway: if netBurnRate is positive (we are losing money), calculate months. Else, stable.
+  const runwayMonths = netBurnRate > 0 ? (initialBalance / netBurnRate) : 999;
+  
+  // Gasto Promedio (Gross Burn Rate) for display in Card 3
+  const burnRate = avgProjectedEgresos;
   
   // Find minimum projected balance to check for insolvency
   const minProjectedBalance = Math.min(...projections.map(p => p.Saldo));
@@ -370,7 +377,7 @@ const ReportesSection = () => {
               {runwayMonths > 50 ? 'Estable' : `${runwayMonths.toFixed(1)} meses`}
             </h3>
             <span className="text-[10px] text-zinc-400 font-medium">
-              Sosteniendo operaciones sin nuevos ingresos
+              Considerando el flujo de caja neto simulado
             </span>
           </div>
           <div className="p-3 bg-zinc-50 border border-zinc-100 rounded-xl">
